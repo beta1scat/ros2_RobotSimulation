@@ -204,15 +204,10 @@ def generate_launch_description():
     )
     
     # === SCHUNK EGP-64 === #
-    egp64left_controller_spawner = Node(
+    egp64_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["egp64_finger_left_controller", "-c", "/controller_manager"],
-    )
-    egp64right_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["egp64_finger_right_controller", "-c", "/controller_manager"],
+        arguments=["egp64_finger_controller", "-c", "/controller_manager"],
     )
     # === SCHUNK EGP-64 === #
 
@@ -436,22 +431,22 @@ def generate_launch_description():
                 OnProcessExit(
                     target_action = joint_trajectory_controller_spawner,
                     on_exit = [
-                        egp64left_controller_spawner,
+                        egp64_controller_spawner,
                     ]
                 )
             ),
-            RegisterEventHandler(
-                OnProcessExit(
-                    target_action = egp64left_controller_spawner,
-                    on_exit = [
-                        egp64right_controller_spawner,
-                    ]
-                )
-            ),
+            # RegisterEventHandler(
+            #     OnProcessExit(
+            #         target_action = egp64left_controller_spawner,
+            #         on_exit = [
+            #             egp64right_controller_spawner,
+            #         ]
+            #     )
+            # ),
 
             RegisterEventHandler(
                 OnProcessExit(
-                    target_action = egp64right_controller_spawner,
+                    target_action = egp64_controller_spawner,
                     on_exit = [
 
                         # MoveIt!2:
