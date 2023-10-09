@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- 
+<!--
 
 # ===================================== COPYRIGHT ===================================== #
 #                                                                                       #
@@ -53,7 +53,7 @@
 -->
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  
+
   <!-- Include additional ABB-Resources/MATERIALS+COLOUR xacro files: -->
   <xacro:include filename="$(find irb120_ros2_gazebo)/urdf/abb_resources/common_materials.xacro"/>
 
@@ -62,14 +62,14 @@
 
     <!-- Load ABB IRB120 TRANSMISSION file: -->
     <xacro:include filename="$(find irb120_ros2_gazebo)/urdf/irb120_transmission.xacro" />
-    <xacro:irb120_transmission 
+    <xacro:irb120_transmission
       prefix=""
       EE_schunk="${EE_schunk}"
     />
-    
+
     <!-- Load ABB IRB120 ROS2_CONTROL file: -->
     <xacro:include filename="$(find irb120_ros2_gazebo)/urdf/irb120_ros2control.xacro" />
-    <xacro:irb120_ros2control 
+    <xacro:irb120_ros2control
       prefix=""
       EE_no="${EE_no}"
       EE_schunk="${EE_schunk}"
@@ -346,7 +346,7 @@
         </collision>
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 ${pi/4}" />
-          <mass value="0.001" />
+          <mass value="0.2" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
       </link>
@@ -366,7 +366,7 @@
       <link name="egp64_gripper_base_link">
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 0" />
-          <mass value="0.005" />
+          <mass value="1.0" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -384,7 +384,6 @@
           <material name="blue"/>
         </collision>
       </link>
-
       <joint name="egp64_coupler" type="fixed">
         <parent link="schunk_coupler"/>
         <child link="egp64_gripper_base_link"/>
@@ -392,11 +391,11 @@
       </joint>
 
       <!-- LEFT FINGER BASE -->
-      
+
       <link name="egp64_finger_left_link">
         <inertial>
           <origin xyz="0.01483 -0.00782 0" rpy="0 0 0" />
-          <mass value="0.002" />
+          <mass value="0.2" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -414,22 +413,21 @@
           <material name="black" />
         </collision>
       </link>
-      
       <joint name="egp64_finger_left_joint" type="prismatic" >
         <parent link="egp64_gripper_base_link" />
         <child link="egp64_finger_left_link" />
-        <limit effort="100" lower="-0.001" upper="0.04" velocity="0.2"/>
+        <limit effort="100" lower="-0.01" upper="0.025" velocity="0.2"/>
         <origin xyz="0.01483 -0.00782 0" rpy="0 0 0" />
         <axis xyz="-1 0 0" />
         <dynamics damping="1.0" friction="1.0"/>
       </joint>
-      
+
       <!-- LEFT FINGERTIP -->
-      
+
       <link name="egp64_fingertip_left_link">
         <inertial>
           <origin xyz="0.03869 -0.0005 0.00093" rpy="0 0 0" />
-          <mass value="0.001" />
+          <mass value="0.1" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -447,20 +445,19 @@
           <material name="black"/>
         </collision>
       </link>
-      
+
       <joint name="egp64_fingertip_left_joint" type="fixed" >
         <parent link="egp64_finger_left_link" />
         <child link="egp64_fingertip_left_link" />
         <origin xyz="0.03869 -0.0005 0.00093" rpy="0 0 0"/>
       </joint>
 
-      
       <!-- RIGHT FINGER BASE -->
 
       <link name="egp64_finger_right_link">
         <inertial>
           <origin xyz="-0.0153 -0.00602 0" rpy="0 0 0" />
-          <mass value="0.002" />
+          <mass value="0.2" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -476,22 +473,19 @@
           <material name="black"/>
         </collision>
       </link>
-      
       <joint name="egp64_finger_right_joint" type="prismatic" >
         <parent link="egp64_gripper_base_link" />
         <child link="egp64_finger_right_link" />
-        <limit effort="100" lower="-0.001" upper="0.04" velocity="0.2"/>
+        <limit effort="100" lower="-0.01" upper="0.025" velocity="0.2"/>
         <origin xyz="-0.0153 -0.00602 0" rpy="0 0 0" />
         <axis xyz="1 0 0" />
         <dynamics damping="1.0" friction="1.0"/>
       </joint>
-      
-      <!-- RIGHT FINGERTIP -->
 
       <link name="egp64_fingertip_right_link">
         <inertial>
           <origin xyz="-0.01211 -0.00197 0.00093" rpy="0 0 0" />
-          <mass value="0.001" />
+          <mass value="0.1" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -507,7 +501,7 @@
           <material name="black"/>
       </collision>
       </link>
-      
+
       <joint name="egp64_fingertip_right_joint" type="fixed" >
         <parent link="egp64_finger_right_link" />
         <child link="egp64_fingertip_right_link" />
@@ -519,7 +513,7 @@
       <link name="EE_egp64">
         <inertial>
           <origin xyz="0 0 0" rpy="0 0 0" />
-          <mass value="0.00001" />
+          <mass value="0.1" />
           <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
         </inertial>
         <visual>
@@ -528,7 +522,7 @@
           </geometry>
         </visual>
       </link>
-      
+
       <joint name="EE_egp64_joint" type="prismatic" >
         <parent link="egp64_gripper_base_link" />
         <child link="EE_egp64" />
