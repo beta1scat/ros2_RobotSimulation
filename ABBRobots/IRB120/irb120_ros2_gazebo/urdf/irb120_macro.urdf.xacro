@@ -419,7 +419,7 @@
         <limit effort="100" lower="-0.01" upper="0.025" velocity="0.2"/>
         <origin xyz="0.01483 -0.00782 0" rpy="0 0 0" />
         <axis xyz="-1 0 0" />
-        <dynamics damping="1.0" friction="1.0"/>
+        <dynamics damping="10.0" friction="0.1"/>
       </joint>
 
       <!-- LEFT FINGERTIP -->
@@ -479,7 +479,7 @@
         <limit effort="100" lower="-0.01" upper="0.025" velocity="0.2"/>
         <origin xyz="-0.0153 -0.00602 0" rpy="0 0 0" />
         <axis xyz="1 0 0" />
-        <dynamics damping="1.0" friction="1.0"/>
+        <dynamics damping="10.0" friction="0.1"/>
       </joint>
 
       <link name="egp64_fingertip_right_link">
