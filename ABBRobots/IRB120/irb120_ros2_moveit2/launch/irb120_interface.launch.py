@@ -229,10 +229,17 @@ def generate_launch_description():
     # === SCHUNK EGP-64 === #
 
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_config}
-    
+
     # Kinematics.yaml file:
     kinematics_yaml = load_yaml("irb120_ros2_moveit2", "config/kinematics.yaml")
     robot_description_kinematics = {"robot_description_kinematics": kinematics_yaml}
+
+    # Sensor.yaml file:
+    octomap_config = load_yaml("irb120_ros2_moveit2", "config/sensor.yaml")
+
+    octomap_updater = {'octomap_frame': 'camera_link',
+                       'octomap_resolution': 0.005,
+                       'max_range': 5.0}
 
     # Move group: OMPL Planning.
     ompl_planning_pipeline_config = {
@@ -283,12 +290,18 @@ def generate_launch_description():
         parameters=[
             robot_description,
             robot_description_semantic,
+            robot_description_kinematics,
             kinematics_yaml,
+            octomap_updater,
+            octomap_config,
             ompl_planning_pipeline_config,
             trajectory_execution,
             moveit_controllers,
             planning_scene_monitor_parameters,
-            {"use_sim_time": True}, 
+            {"use_sim_time": True},
+            {"publish_robot_description": True},
+            {"publish_robot_description_semantic": True},
+            {"publish_kinematics_yaml": True},
         ],
     )
 
