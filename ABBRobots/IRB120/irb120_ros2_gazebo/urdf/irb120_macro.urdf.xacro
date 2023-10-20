@@ -353,7 +353,8 @@
 
       <!-- Schunk coupler (JOINT): -->
       <joint name="schunk_coupler_joint" type="fixed">
-        <origin xyz="0 0 0.001" rpy="0 0 ${pi/4}" />
+        <!-- <origin xyz="0 0 0.001" rpy="0 0 ${pi/4}" /> -->
+        <origin xyz="0 0 0.001" rpy="0 0 ${pi/2}" />
         <parent link="tool0"/>
         <child link="schunk_coupler"/>
       </joint>
