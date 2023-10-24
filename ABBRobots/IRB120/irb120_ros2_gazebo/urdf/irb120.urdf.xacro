@@ -62,10 +62,10 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <visual name="camera_link_visual">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.1 0.1 0.05"/>
+        <mesh filename="file://$(find irb120_ros2_gazebo)/meshes/camera/EpicEyeS-M.dae"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
     <inertial>
       <mass value="2"/>

@@ -247,6 +247,7 @@
         <selfCollide>false</selfCollide>
         <mu1>1.0</mu1>
         <mu2>1.0</mu2>
+        <material>Gazebo/Grey</material>
       </gazebo>
       <gazebo reference="egp64_finger_left_link">
         <selfCollide>false</selfCollide>
@@ -258,7 +259,7 @@
         <selfCollide>false</selfCollide>
         <mu1>1.0</mu1>
         <mu2>1.0</mu2>
-        <material>Gazebo/Black</material>
+        <material>Gazebo/White</material>
       </gazebo>  
       <gazebo reference="egp64_finger_right_link">
         <selfCollide>false</selfCollide>
@@ -270,7 +271,7 @@
         <selfCollide>false</selfCollide>
         <mu1>1.0</mu1>
         <mu2>1.0</mu2>
-        <material>Gazebo/Black</material>
+        <material>Gazebo/White</material>
       </gazebo> 
     </xacro:if>
     <!-- === SCHUNK EGP-64 GRIPPER === -->
