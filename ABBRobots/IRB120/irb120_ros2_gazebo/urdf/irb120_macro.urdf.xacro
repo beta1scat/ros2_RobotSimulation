@@ -520,6 +520,7 @@
         <visual>
           <geometry>
             <box size= "0.001 0.001 0.001" />
+            <!-- <mesh filename="file://$(find irb120_ros2_gazebo)/meshes/cube/meshes/model.dae" /> -->
           </geometry>
         </visual>
       </link>
