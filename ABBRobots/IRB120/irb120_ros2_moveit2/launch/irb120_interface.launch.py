@@ -313,7 +313,7 @@ def generate_launch_description():
         rviz_full_config = os.path.join(rviz_base, "irb120_moveit2.rviz")
     # === SCHUNK EGP-64 === #
     elif (EE_schunk == "true"):
-        rviz_full_config = os.path.join(rviz_base, "irb120egp64_moveit2_pc.rviz")
+        rviz_full_config = os.path.join(rviz_base, "irb120egp64_moveit2_bin.rviz")
     # === SCHUNK EGP-64 === #
 
     rviz_node_full = Node(
