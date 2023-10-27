@@ -7,8 +7,8 @@ moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControll
 
 controller_names:
   - irb120_controller
-  - egp64_finger_left_controller
-  - egp64_finger_right_controller
+  # - egp64_finger_left_controller
+  # - egp64_finger_right_controller
 
 irb120_controller:
   action_ns: follow_joint_trajectory
@@ -22,16 +22,16 @@ irb120_controller:
     - joint_5
     - joint_6
 
-egp64_finger_left_controller:
-  action_ns: gripper_cmd
-  type: GripperCommand
-  default: true
-  joints:
-    - egp64_finger_left_joint
+# egp64_finger_left_controller:
+#   action_ns: gripper_cmd
+#   type: GripperCommand
+#   default: true
+#   joints:
+#     - egp64_finger_left_joint
 
-egp64_finger_right_controller:
-  action_ns: gripper_cmd
-  type: GripperCommand
-  default: true
-  joints:
-    - egp64_finger_right_joint
+# egp64_finger_right_controller:
+#   action_ns: gripper_cmd
+#   type: GripperCommand
+#   default: true
+#   joints:
+#     - egp64_finger_right_joint

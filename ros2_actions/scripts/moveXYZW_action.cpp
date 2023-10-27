@@ -45,6 +45,8 @@
 
 #include "ros2_data/action/move_xyzw.hpp"
 
+#include <Eigen/Dense>
+
 // Declaration of global constants:
 const double pi = 3.14159265358979;
 const double k = pi/180.0;
@@ -168,28 +170,32 @@ private:
         RCLCPP_INFO(this->get_logger(), "ORIENTATION (quaternion) -> (x = %.2f, y = %.2f, z = %.2f, w = %.2f)", current_pose.pose.orientation.x, current_pose.pose.orientation.y,current_pose.pose.orientation.z,current_pose.pose.orientation.w);
 
         // EULER to QUATERNION CONVERSION:
-        double cy = cos(k*yaw * 0.5);
-        double sy = sin(k*yaw * 0.5);
-        double cp = cos(k*pitch * 0.5);
-        double sp = sin(k*pitch * 0.5);
-        double cr = cos(k*roll * 0.5);
-        double sr = sin(k*roll * 0.5);
-        double orientationX = sr * cp * cy - cr * sp * sy;
-        double orientationY = cr * sp * cy + sr * cp * sy;
-        double orientationZ = cr * cp * sy - sr * sp * cy;
-        double orientationW = cr * cp * cy + sr * sp * sy;
+        // double cy = cos(k*yaw * 0.5);
+        // double sy = sin(k*yaw * 0.5);
+        // double cp = cos(k*pitch * 0.5);
+        // double sp = sin(k*pitch * 0.5);
+        // double cr = cos(k*roll * 0.5);
+        // double sr = sin(k*roll * 0.5);
+        // double orientationX = sr * cp * cy - cr * sp * sy;
+        // double orientationY = cr * sp * cy + sr * cp * sy;
+        // double orientationZ = cr * cp * sy - sr * sp * cy;
+        // double orientationW = cr * cp * cy + sr * sp * sy;
 
+        Eigen::Quaterniond qTP(Eigen::AngleAxisd(roll * k, Eigen::Vector3d::UnitZ()) *
+                               Eigen::AngleAxisd(pitch * k, Eigen::Vector3d::UnitY()) *
+                               Eigen::AngleAxisd(yaw * k, Eigen::Vector3d::UnitX()));
+        RCLCPP_INFO(this->get_logger(), "Goal Position -> (x = %.2f, y = %.2f, z = %.2f)", positionX, positionY, positionZ);
+        RCLCPP_INFO(this->get_logger(), "Goal ORIENTATION (quaternion) -> (x = %.2f, y = %.2f, z = %.2f, w = %.2f)", qTP.x(), qTP.y(), qTP.z(), qTP.w());
         // POSE-goal planning:
         geometry_msgs::msg::Pose target_pose;
         target_pose.position.x = positionX;
         target_pose.position.y = positionY;
         target_pose.position.z = positionZ;
-        target_pose.orientation.x = orientationX;
-        target_pose.orientation.y = orientationY;
-        target_pose.orientation.z = orientationZ;
-        target_pose.orientation.w = orientationW;
+        target_pose.orientation.x = qTP.x();
+        target_pose.orientation.y = qTP.y();
+        target_pose.orientation.z = qTP.z();
+        target_pose.orientation.w = qTP.w();
         move_group_interface.setPoseTarget(target_pose);
-
         // Plan, execute and inform (with feedback):
         moveit::planning_interface::MoveGroupInterface::Plan my_plan;
         

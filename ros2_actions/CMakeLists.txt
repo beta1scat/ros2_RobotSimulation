@@ -43,6 +43,8 @@ find_package(ros2_data REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 
+find_package(Eigen3 REQUIRED)
+
 # ===== ACTIONS ===== #
 # moveJ_action.cpp:
 add_executable(moveJ_action scripts/moveJ_action.cpp)
@@ -88,6 +90,7 @@ ament_target_dependencies(
   std_msgs
   rclcpp
   rclcpp_action
+  Eigen3
   ros2_data)
 install(TARGETS
   moveXYZW_action
