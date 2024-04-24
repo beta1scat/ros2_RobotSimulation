@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<robot name="hollow_cube" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="length" value="1.0"/>
+  <xacro:property name="width" value="1.0"/>
+  <xacro:property name="height" value="1.0"/>
+  <xacro:property name="thickness" value="0.01"/>
+
+  <xacro:macro name="cube" params="prefix x y z l w h">
+    <link name="${prefix}">
+      <inertial>
+        <pose>0 0 0.1016 0 0 0</pose>
+        <!-- volume about 0.0085 m^3, density 2000 kg/m^3 -->
+        <mass value="0.1"></mass>
+        <!-- approximate as uniform box 0.37 x 0.17 x 0.20 m -->
+        <inertia
+          ixx="0.0001"
+          ixy="0.0000"
+          iyy="0.0001"
+          ixz="0.0000"
+          iyz="0.0000"
+          izz="0.0001">
+        </inertia>
+      </inertial>
+      <visual name="${prefix}_visual">
+        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${l} ${w} ${h}"/>
+        </geometry>
+      </visual>
+      <collision name="${prefix}_collision">
+        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${l} ${w} ${h}"/>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <max_vel>0.1</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+    <joint name="${prefix}-base" type="fixed">
+      <parent link="base"/>
+      <child link="${prefix}"/>
+    </joint>
+  </xacro:macro>
+
+  <link name="base"/>
+
+  <xacro:macro name="box">
+      <xacro:cube prefix="left" x="-${-thickness/2 + width/2}" y="0" z="0" l="${thickness}" w="${width}" h="${height}"/>
+      <xacro:cube prefix="right" x="${-thickness/2 + width/2}" y="0" z="0" l="${thickness}" w="${width}" h="${height}"/>
+      <xacro:cube prefix="front" x="0" y="-${-thickness/2 + length/2}" z="0" l="${length - 2*thickness}" w="${thickness}" h="${height}"/>
+      <xacro:cube prefix="back" x="0" y="${-thickness/2 + length/2}" z="0" l="${length - 2*thickness}" w="${thickness}" h="${height}"/>
+      <xacro:cube prefix="bottom" x="0" y="0" z="-${-thickness/2 + height/2}" l="${length - 2*thickness}" w="${width - 2*thickness}" h="${thickness}"/>
+  </xacro:macro>
+
+  <xacro:box/>
+
+</robot>

@@ -168,7 +168,7 @@
           </material>
         </visual>
       </link>
-      <pose>-0.35 -0.3 0 0 0 0</pose>
+      <pose>0.35 0.3 0 0 0 0</pose>
     </model>
     <include>
       <uri>model://ground_plane</uri>
