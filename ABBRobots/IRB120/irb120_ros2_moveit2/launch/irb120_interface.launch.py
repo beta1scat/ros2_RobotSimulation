@@ -43,6 +43,7 @@ from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 import xacro
 import yaml
+import re
 
 # LOAD FILE:
 def load_file(package_name, file_path):
@@ -160,7 +161,10 @@ def generate_launch_description():
         "EE_schunk": EE_schunk,
         })
     robot_description_config = doc.toxml()
-    robot_description = {'robot_description': robot_description_config}
+    # Delete all comments in URDF file
+    pattern = r'<!--.*?-->'
+    result = re.sub(pattern, '', robot_description_config, flags=re.DOTALL)
+    robot_description = {'robot_description': result}
 
     # SPAWN ROBOT TO GAZEBO:
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
