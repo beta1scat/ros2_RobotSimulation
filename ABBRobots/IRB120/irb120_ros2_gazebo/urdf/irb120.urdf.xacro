@@ -88,8 +88,12 @@
       <camera name="realsense_depth_camera">
         <horizontal_fov>0.6</horizontal_fov>
         <image>
-          <width>320</width>
-          <height>240</height>
+          <!-- <width>1920</width>
+          <height>1440</height> -->
+          <width>1440</width>
+          <height>1080</height>
+          <!-- <width>320</width>
+          <height>240</height> -->
           <format>B8G8R8</format>
         </image>
         <clip>
